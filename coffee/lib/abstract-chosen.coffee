@@ -207,6 +207,7 @@ class AbstractChosen
   search_string_match: (search_string, regex, option_html) ->
     if option_html.indexOf(search_string) > 0
       return true
+      
     if regex.test search_string
       return true
     else if @enable_split_word_search and (search_string.indexOf(" ") >= 0 or search_string.indexOf("[") == 0)
