@@ -177,7 +177,7 @@ class AbstractChosen
         option.search_text = if option.group then option.label else option.html
 
         unless option.group and not @group_search
-          option.search_match = this.search_string_match(option.search_text, regex)
+          option.search_match = this.search_string_match(option.search_text, regex, option.html)
           results += 1 if option.search_match and not option.group
 
           if option.search_match
@@ -204,7 +204,9 @@ class AbstractChosen
     regex_anchor = if @search_contains then "" else "^"
     new RegExp(regex_anchor + escaped_search_string, 'i')
 
-  search_string_match: (search_string, regex) ->
+  search_string_match: (search_string, regex, option_html) ->
+    if option_html.indexOf(search_string) > 0
+      return true
     if regex.test search_string
       return true
     else if @enable_split_word_search and (search_string.indexOf(" ") >= 0 or search_string.indexOf("[") == 0)
